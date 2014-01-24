@@ -1,10 +1,15 @@
+#include "maincontrol.h"
+
 #include "mainwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+  QApplication a(argc, argv);
 
-    return a.exec();
+  quibe::MainControl controle;
+
+  MainWindow w(&controle);
+  w.show();
+
+  return a.exec();
 }
