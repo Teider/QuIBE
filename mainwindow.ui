@@ -105,7 +105,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="groupBox_comandos">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -347,7 +347,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_2">
+   <widget class="QGroupBox" name="groupBox_sensores">
     <property name="geometry">
      <rect>
       <x>650</x>
