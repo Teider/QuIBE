@@ -11,6 +11,7 @@ MainWindow::MainWindow(quibe::MainControl *controle, QWidget *parent) :
 
   ui->setupUi(this);
 
+  this->setupShortcuts();
   this->setupSignals();
 }
 
@@ -24,6 +25,17 @@ void MainWindow::displayMessage(QString message) {
   dialog->show();
   dialog->raise();
   dialog->activateWindow();
+}
+
+void MainWindow::setupShortcuts() {
+  ui->pushButton_esquerda->setShortcut(Qt::Key_Left);
+  ui->pushButton_direita->setShortcut(Qt::Key_Right);
+  ui->pushButton_frente->setShortcut(Qt::Key_Up);
+  ui->pushButton_tras->setShortcut(Qt::Key_Down);
+  ui->pushButton_subir->setShortcut(Qt::Key_S);
+  ui->pushButton_descer->setShortcut(Qt::Key_D);
+  ui->pushButton_horario->setShortcut(Qt::Key_Period);
+  ui->pushButton_antihorario->setShortcut(Qt::Key_Comma);
 }
 
 void MainWindow::setupSignals() {

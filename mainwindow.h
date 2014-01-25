@@ -26,6 +26,7 @@ private:
 
   quibe::MainControl *controle;
 
+  void setupShortcuts();
   void setupSignals();
 };
 
