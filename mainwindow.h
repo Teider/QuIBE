@@ -19,6 +19,9 @@ public:
   explicit MainWindow(quibe::MainControl *controle = 0, QWidget *parent = 0);
   ~MainWindow();
 
+public slots:
+  void displayMessage(QString message);
+
 private:
   Ui::MainWindow *ui;
 

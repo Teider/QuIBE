@@ -6,7 +6,7 @@ quibe::MainControl::MainControl(QObject *parent) :
 }
 
 void quibe::MainControl::comando_esquerda() {
-
+  emit this->message(QString("Botão esquerda clicado"));
 }
 
 void quibe::MainControl::comando_direita() {

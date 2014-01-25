@@ -1,4 +1,5 @@
 #include "maincontrol.h"
+#include "messagedialog.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -9,10 +10,20 @@ MainWindow::MainWindow(quibe::MainControl *controle, QWidget *parent) :
   this->controle = controle;
 
   ui->setupUi(this);
+
+  this->setupSignals();
 }
 
 MainWindow::~MainWindow() {
   delete ui;
+}
+
+void MainWindow::displayMessage(QString message) {
+  MessageDialog *dialog = new MessageDialog(message, this);
+
+  dialog->show();
+  dialog->raise();
+  dialog->activateWindow();
 }
 
 void MainWindow::setupSignals() {
@@ -32,4 +43,7 @@ void MainWindow::setupSignals() {
                    SLOT(comando_horario()));
   QObject::connect(ui->pushButton_antihorario, SIGNAL(clicked()), controle,
                    SLOT(comando_antihorario()));
+
+  QObject::connect(controle, SIGNAL(message(QString)), this,
+                   SLOT(displayMessage(QString)));
 }

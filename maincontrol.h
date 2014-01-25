@@ -12,6 +12,7 @@ public:
   explicit MainControl(QObject *parent = 0);
 
 signals:
+  void message(QString message);
 
 public slots:
   void comando_esquerda();
