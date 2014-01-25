@@ -13,4 +13,5 @@
 *.a
 
 # Arquivos de configuração do Qt
+*.pro.user
 *.pro.user*
