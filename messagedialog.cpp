@@ -8,6 +8,7 @@ MessageDialog::MessageDialog(QString message, QWidget *parent) :
   ui->setupUi(this);
   ui->label->setText(message);
 
+  QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(deleteLater()));
 }
 
 MessageDialog::~MessageDialog()
