@@ -6,7 +6,7 @@ quibe::MainControl::MainControl(QObject *parent) :
 }
 
 void quibe::MainControl::comando_esquerda() {
-  emit this->message(QString("Botão esquerda clicado"));
+
 }
 
 void quibe::MainControl::comando_direita() {
@@ -38,11 +38,11 @@ void quibe::MainControl::comando_antihorario() {
 }
 
 void quibe::MainControl::conectar_serial(bool conectar) {
-  emit conexao_serial(conectar);
+  emit serial_conectado(conectar);
 }
 
 void quibe::MainControl::conectar_quadricoptero(bool conectar) {
-  emit conexao_quadricoptero(conectar);
+  emit quadricoptero_conectado(conectar);
 }
 
 void quibe::MainControl::comando_decolar_pousar(bool decolar) {

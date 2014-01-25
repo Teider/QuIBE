@@ -63,9 +63,9 @@ void MainWindow::setupSignals() {
   QObject::connect(ui->pushButton_decolar_pousar, SIGNAL(clicked(bool)),
                    controle, SLOT(comando_decolar_pousar(bool)));
 
-  QObject::connect(controle, SIGNAL(conexao_serial(bool)),
+  QObject::connect(controle, SIGNAL(serial_conectado(bool)),
                    this, SLOT(enableConectarQuadricoptero(bool)));
-  QObject::connect(controle, SIGNAL(conexao_quadricoptero(bool)),
+  QObject::connect(controle, SIGNAL(quadricoptero_conectado(bool)),
                    this, SLOT(enableDecolar(bool)));
   QObject::connect(controle, SIGNAL(decolou()), this, SLOT(enableComandos()));
   QObject::connect(controle, SIGNAL(pousou()), this, SLOT(disableComandos()));
@@ -83,25 +83,32 @@ void MainWindow::setupSignals() {
 
 void MainWindow::enableConectarQuadricoptero(bool enable) {
   ui->pushButton_conectar_quadricoptero->setEnabled(enable);
+  ui->pushButton_conectar_quadricoptero->setChecked(false);
+  toggleConectarQuadricoptero(false);
+  if (!enable) {
+    enableDecolar(false);
+  }
 }
 
 void MainWindow::enableDecolar(bool enable) {
   ui->pushButton_decolar_pousar->setEnabled(enable);
-  ui->pushButton_conectar_serial->setEnabled(!enable);
+  if (!enable) {
+    disableComandos();
+  } else if (ui->pushButton_decolar_pousar->isChecked()) {
+    enableComandos();
+  }
 }
 
 void MainWindow::enableComandos() {
   ui->groupBox_comandos->setEnabled(true);
   ui->groupBox_inclinacao->setEnabled(true);
   ui->groupBox_sensores->setEnabled(true);
-  ui->pushButton_conectar_quadricoptero->setEnabled(false);
 }
 
 void MainWindow::disableComandos() {
   ui->groupBox_comandos->setEnabled(false);
   ui->groupBox_inclinacao->setEnabled(false);
   ui->groupBox_sensores->setEnabled(false);
-  ui->pushButton_conectar_quadricoptero->setEnabled(true);
 }
 
 void MainWindow::toggleConectarSerial(bool conectar) {

@@ -107,13 +107,6 @@
       <bool>true</bool>
      </property>
     </widget>
-    <zorder>label_longitudinal</zorder>
-    <zorder>label_transversal</zorder>
-    <zorder>label_vertical</zorder>
-    <zorder>lineEdit_longitudinal</zorder>
-    <zorder>lineEdit_transversal</zorder>
-    <zorder>lineEdit_vertical</zorder>
-    <zorder>label_baud_rate</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_comandos">
     <property name="enabled">
