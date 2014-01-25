@@ -3,15 +3,13 @@
 
 MessageDialog::MessageDialog(QString message, QWidget *parent) :
   QDialog(parent),
-  ui(new Ui::MessageDialog)
-{
+  ui(new Ui::MessageDialog) {
   ui->setupUi(this);
   ui->label->setText(message);
 
   QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(deleteLater()));
 }
 
-MessageDialog::~MessageDialog()
-{
+MessageDialog::~MessageDialog() {
   delete ui;
 }

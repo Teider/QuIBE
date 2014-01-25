@@ -5,8 +5,7 @@
 
 namespace quibe {
 
-class MainControl : public QObject
-{
+class MainControl : public QObject {
   Q_OBJECT
 public:
   explicit MainControl(QObject *parent = 0);
