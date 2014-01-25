@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>969</width>
-    <height>312</height>
+    <width>648</width>
+    <height>556</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,9 +15,12 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QGroupBox" name="groupBox_inclinacao">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>330</x>
       <y>10</y>
       <width>311</width>
       <height>241</height>
@@ -104,12 +107,22 @@
       <bool>true</bool>
      </property>
     </widget>
+    <zorder>label_longitudinal</zorder>
+    <zorder>label_transversal</zorder>
+    <zorder>label_vertical</zorder>
+    <zorder>lineEdit_longitudinal</zorder>
+    <zorder>lineEdit_transversal</zorder>
+    <zorder>lineEdit_vertical</zorder>
+    <zorder>label_baud_rate</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_comandos">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>10</y>
+      <x>10</x>
+      <y>260</y>
       <width>311</width>
       <height>241</height>
      </rect>
@@ -173,7 +186,7 @@
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>180</y>
+       <y>190</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -186,7 +199,7 @@
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>110</y>
+       <y>120</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -225,7 +238,7 @@
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>90</y>
+       <y>100</y>
        <width>46</width>
        <height>13</height>
       </rect>
@@ -241,7 +254,7 @@
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>160</y>
+       <y>170</y>
        <width>46</width>
        <height>13</height>
       </rect>
@@ -289,7 +302,7 @@
      <property name="geometry">
       <rect>
        <x>265</x>
-       <y>70</y>
+       <y>90</y>
        <width>20</width>
        <height>131</height>
       </rect>
@@ -311,7 +324,7 @@
      <property name="geometry">
       <rect>
        <x>249</x>
-       <y>20</y>
+       <y>40</y>
        <width>53</width>
        <height>16</height>
       </rect>
@@ -327,7 +340,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>40</y>
+       <y>60</y>
        <width>31</width>
        <height>20</height>
       </rect>
@@ -337,7 +350,7 @@
      <property name="geometry">
       <rect>
        <x>283</x>
-       <y>40</y>
+       <y>60</y>
        <width>10</width>
        <height>20</height>
       </rect>
@@ -348,10 +361,13 @@
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_sensores">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>10</y>
+      <x>330</x>
+      <y>260</y>
       <width>311</width>
       <height>241</height>
      </rect>
@@ -534,6 +550,191 @@
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_conexao">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>310</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Conexão</string>
+    </property>
+    <widget class="QComboBox" name="comboBox_porta">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>90</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_porta">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Porta:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_baud_rate">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>60</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Baud Rate:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_paridade">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Paridade:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_bits">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Bits:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_baud_rate">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>90</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_bits">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>80</y>
+       <width>90</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_paridade">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>110</y>
+       <width>90</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_stop_bits">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stop bits:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_stop_bits">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>140</y>
+       <width>90</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_conectar_serial">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>20</y>
+       <width>110</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Conectar Serial</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_conectar_quadricoptero">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>160</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Conectar Quadricóptero</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_decolar_pousar">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>190</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Decolar</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
@@ -549,8 +750,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>969</width>
-     <height>21</height>
+     <width>648</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>

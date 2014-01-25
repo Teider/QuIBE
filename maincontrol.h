@@ -12,6 +12,10 @@ public:
 
 signals:
   void message(QString message);
+  void conexao_serial(bool conectado);
+  void conexao_quadricoptero(bool conectado);
+  void decolou();
+  void pousou();
 
 public slots:
   void comando_esquerda();
@@ -22,6 +26,10 @@ public slots:
   void comando_descer();
   void comando_horario();
   void comando_antihorario();
+
+  void conectar_serial(bool conectar);
+  void conectar_quadricoptero(bool conectar);
+  void comando_decolar_pousar(bool decolar);
 
 };
 

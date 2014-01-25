@@ -36,3 +36,17 @@ void quibe::MainControl::comando_horario() {
 void quibe::MainControl::comando_antihorario() {
 
 }
+
+void quibe::MainControl::conectar_serial(bool conectar) {
+  emit conexao_serial(conectar);
+}
+
+void quibe::MainControl::conectar_quadricoptero(bool conectar) {
+  emit conexao_quadricoptero(conectar);
+}
+
+void quibe::MainControl::comando_decolar_pousar(bool decolar) {
+  if (decolar) {
+    emit decolou();
+  } else emit pousou();
+}
