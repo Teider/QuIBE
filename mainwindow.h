@@ -26,12 +26,17 @@ public slots:
 
   void displayMessage(QString message);
 
+protected:
+  void keyPressEvent(QKeyEvent *e);
+  void keyReleaseEvent(QKeyEvent *e);
+
 private:
   Ui::MainWindow *ui;
 
   quibe::MainControl *controle;
 
-  void setupShortcuts();
+  bool noAr;
+
   void setupSignals();
 
 private slots:
