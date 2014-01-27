@@ -26,6 +26,7 @@ public slots:
   void comando_descer();
   void comando_horario();
   void comando_antihorario();
+  void comando_parar();
 
   void conectar_serial(bool conectar);
   void conectar_quadricoptero(bool conectar);

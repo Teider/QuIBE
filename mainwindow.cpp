@@ -39,22 +39,39 @@ void MainWindow::setupShortcuts() {
 }
 
 void MainWindow::setupSignals() {
-  QObject::connect(ui->pushButton_esquerda, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_esquerda, SIGNAL(pressed()),
                    controle, SLOT(comando_esquerda()));
-  QObject::connect(ui->pushButton_direita, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_direita, SIGNAL(pressed()),
                    controle, SLOT(comando_direita()));
-  QObject::connect(ui->pushButton_frente, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_frente, SIGNAL(pressed()),
                    controle, SLOT(comando_frente()));
-  QObject::connect(ui->pushButton_tras, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_tras, SIGNAL(pressed()),
                    controle, SLOT(comando_tras()));
-  QObject::connect(ui->pushButton_subir, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_subir, SIGNAL(pressed()),
                    controle, SLOT(comando_subir()));
-  QObject::connect(ui->pushButton_descer, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_descer, SIGNAL(pressed()),
                    controle, SLOT(comando_descer()));
-  QObject::connect(ui->pushButton_horario, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_horario, SIGNAL(pressed()),
                    controle, SLOT(comando_horario()));
-  QObject::connect(ui->pushButton_antihorario, SIGNAL(clicked()),
+  QObject::connect(ui->pushButton_antihorario, SIGNAL(pressed()),
                    controle, SLOT(comando_antihorario()));
+
+  QObject::connect(ui->pushButton_esquerda, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_direita, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_frente, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_tras, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_subir, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_descer, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_horario, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
+  QObject::connect(ui->pushButton_antihorario, SIGNAL(released()),
+                   controle, SLOT(comando_parar()));
 
   QObject::connect(ui->pushButton_conectar_serial, SIGNAL(clicked(bool)),
                    controle, SLOT(conectar_serial(bool)));
