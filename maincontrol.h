@@ -32,6 +32,12 @@ public slots:
   void conectar_quadricoptero(bool conectar);
   void comando_decolar_pousar(bool decolar);
 
+  void velocidade_alterada(int velocidade);
+
+private:
+
+  int velocidade;
+
 };
 
 }

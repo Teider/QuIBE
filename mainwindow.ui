@@ -133,7 +133,17 @@
       </rect>
      </property>
      <property name="text">
-      <string>Cima</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/images/resources/frente.png</normaloff>:/images/resources/frente.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_tras">
@@ -146,7 +156,17 @@
       </rect>
      </property>
      <property name="text">
-      <string>Trás</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/images/resources/tras.png</normaloff>:/images/resources/tras.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_esquerda">
@@ -159,7 +179,17 @@
       </rect>
      </property>
      <property name="text">
-      <string>Esquerda</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/images/resources/esquerda.png</normaloff>:/images/resources/esquerda.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_direita">
@@ -172,7 +202,17 @@
       </rect>
      </property>
      <property name="text">
-      <string>Direita</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/images/resources/direita.png</normaloff>:/images/resources/direita.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_descer">
@@ -269,7 +309,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Colocar imagem</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="images.qrc">:/images/resources/rotate e.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -285,7 +328,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Colocar imagem</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="images.qrc">:/images/resources/rotate d.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -300,8 +346,23 @@
        <height>131</height>
       </rect>
      </property>
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="singleStep">
+      <number>10</number>
+     </property>
+     <property name="value">
+      <number>50</number>
+     </property>
+     <property name="sliderPosition">
+      <number>50</number>
+     </property>
      <property name="tracking">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -311,6 +372,9 @@
      </property>
      <property name="tickPosition">
       <enum>QSlider::NoTicks</enum>
+     </property>
+     <property name="tickInterval">
+      <number>0</number>
      </property>
     </widget>
     <widget class="QLabel" name="label_velocidade">
@@ -337,6 +401,18 @@
        <width>31</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="inputMask">
+      <string>999</string>
+     </property>
+     <property name="text">
+      <string>50</string>
+     </property>
+     <property name="maxLength">
+      <number>3</number>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLabel" name="label_percent">
@@ -744,12 +820,14 @@
      <x>0</x>
      <y>0</y>
      <width>648</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

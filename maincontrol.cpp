@@ -4,6 +4,7 @@
 
 quibe::MainControl::MainControl(QObject *parent) :
   QObject(parent) {
+  velocidade = 50;
 
 }
 
@@ -55,4 +56,9 @@ void quibe::MainControl::comando_decolar_pousar(bool decolar) {
   if (decolar) {
     emit decolou();
   } else emit pousou();
+}
+
+void quibe::MainControl::velocidade_alterada(int velocidade) {
+  this->velocidade = velocidade;
+  qDebug() << "Velocidade alterada para: " << velocidade << "\%" << endl;
 }

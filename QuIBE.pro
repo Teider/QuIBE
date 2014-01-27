@@ -23,3 +23,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     messagedialog.ui
+
+RESOURCES += \
+    images.qrc

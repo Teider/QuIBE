@@ -88,6 +88,13 @@ void MainWindow::setupSignals() {
                    this, SLOT(toggleConectarQuadricoptero(bool)));
   QObject::connect(ui->pushButton_decolar_pousar, SIGNAL(clicked(bool)),
                    this, SLOT(toggleDecolar(bool)));
+
+  QObject::connect(ui->verticalSlider_velocidade, SIGNAL(valueChanged(int)),
+                   this, SLOT(mudarVelocidade(int)));
+  QObject::connect(ui->lineEdit_velocidade, SIGNAL(textEdited(QString)),
+                   this, SLOT(mudarVelocidade(QString)));
+  QObject::connect(this, SIGNAL(velocidade_alterada(int)),
+                   controle, SLOT(velocidade_alterada(int)));
 }
 
 void MainWindow::enableConectarQuadricoptero(bool enable) {
@@ -142,6 +149,28 @@ void MainWindow::toggleDecolar(bool decolar) {
   if (decolar) {
     ui->pushButton_decolar_pousar->setText("Pousar");
   } else ui->pushButton_decolar_pousar->setText("Decolar");
+}
+
+void MainWindow::mudarVelocidade(int nova_velocidade) {
+  if (nova_velocidade > 100) nova_velocidade = 100;
+  if (nova_velocidade < 10) nova_velocidade = 10;
+  if (nova_velocidade % 10) nova_velocidade -= (nova_velocidade % 10);
+  int aux = ui->lineEdit_velocidade->text().toInt();
+  if (aux != nova_velocidade) {
+    ui->lineEdit_velocidade->setText(QString::number(nova_velocidade));
+    emit velocidade_alterada(nova_velocidade);
+  }
+}
+
+void MainWindow::mudarVelocidade(QString nova_velocidade) {
+  int aux = nova_velocidade.toInt();
+  if (aux > 100) aux = 100;
+  if (aux < 10) aux = 10;
+  if (aux % 10) aux -= (aux % 10);
+  if (ui->verticalSlider_velocidade->value() != aux) {
+    ui->verticalSlider_velocidade->setValue(aux);
+    emit velocidade_alterada(aux);
+  }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {

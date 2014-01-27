@@ -26,6 +26,9 @@ public slots:
 
   void displayMessage(QString message);
 
+signals:
+  void velocidade_alterada(int velocidade);
+
 protected:
   void keyPressEvent(QKeyEvent *e);
   void keyReleaseEvent(QKeyEvent *e);
@@ -43,6 +46,8 @@ private slots:
   void toggleConectarSerial(bool conectar);
   void toggleConectarQuadricoptero(bool conectar);
   void toggleDecolar(bool decolar);
+  void mudarVelocidade(int nova_velocidade);
+  void mudarVelocidade(QString nova_velocidade);
 
 };
 

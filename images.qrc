@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>resources/esquerda.png</file>
+        <file>resources/direita.png</file>
+        <file>resources/frente.png</file>
+        <file>resources/rotate d.png</file>
+        <file>resources/tras.png</file>
+        <file>resources/rotate e.png</file>
+    </qresource>
+</RCC>
