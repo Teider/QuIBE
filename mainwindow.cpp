@@ -100,6 +100,8 @@ void MainWindow::setupSignals() {
 
   QObject::connect(controle, SIGNAL(serial_conectado(bool)),
                    this, SLOT(serialConectado(bool)));
+  QObject::connect(controle, SIGNAL(serial_desconectado()),
+                   this, SLOT(serialDesconectado()));
 }
 
 void MainWindow::enableConectarQuadricoptero(bool enable) {
@@ -154,11 +156,20 @@ void MainWindow::toggleConectarSerial(bool conectar) {
 void MainWindow::serialConectado(bool conectado) {
   if (conectado) {
     ui->pushButton_conectar_serial->setText("Desconectar Serial");
+    ui->pushButton_conectar_quadricoptero->setEnabled(true);
   } else {
     displayMessage("Não foi possível conectar à porta serial");
     ui->pushButton_conectar_serial->setText("Conectar Serial");
     ui->pushButton_conectar_serial->toggled(false);
   }
+}
+
+void MainWindow::serialDesconectado() {
+  ui->pushButton_conectar_serial->setText("Conectar Serial");
+  ui->pushButton_conectar_serial->toggled(false);
+  ui->pushButton_conectar_quadricoptero->setEnabled(false);
+  ui->pushButton_conectar_quadricoptero->toggled(false);
+  toggleConectarQuadricoptero(false);
 }
 
 void MainWindow::toggleConectarQuadricoptero(bool conectar) {

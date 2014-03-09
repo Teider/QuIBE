@@ -50,6 +50,7 @@ void quibe::MainControl::conectar_serial(bool conectar, SerialConfig config) {
     emit serial_conectado(conectado);
   } else {
     serial.desconectar();
+    emit serial_desconectado();
   }
 }
 

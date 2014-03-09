@@ -15,6 +15,7 @@ public:
 signals:
   void message(QString message);
   void serial_conectado(bool conectado);
+  void serial_desconectado();
   void quadricoptero_conectado(bool conectado);
   void decolou();
   void pousou();

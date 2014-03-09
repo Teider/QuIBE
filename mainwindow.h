@@ -50,6 +50,7 @@ private slots:
   void mudarVelocidade(QString nova_velocidade);
 
   void serialConectado(bool conectado);
+  void serialDesconectado();
 
 };
 
