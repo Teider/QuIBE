@@ -45,14 +45,12 @@ void quibe::MainControl::comando_parar() {
 }
 
 void quibe::MainControl::conectar_serial(bool conectar, SerialConfig config) {
-  bool conectado = false;
   if (conectar) {
-    conectado = serial.conectar(config);
+    bool conectado = serial.conectar(config);
+    emit serial_conectado(conectado);
   } else {
     serial.desconectar();
   }
-
-  emit serial_conectado(conectado);
 }
 
 void quibe::MainControl::conectar_quadricoptero(bool conectar) {

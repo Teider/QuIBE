@@ -9,8 +9,8 @@ quibe::ComunicacaoSerial::ComunicacaoSerial(QObject *parent) :
 }
 
 bool quibe::ComunicacaoSerial::conectar(SerialConfig config) {
-  if (!serialPort.open(QIODevice::ReadWrite)) return false;
   serialPort.setPortName(config.portName);
+  if (!serialPort.open(QIODevice::ReadOnly)) return false;
   serialPort.setBaudRate(config.baudRate);
   serialPort.setDataBits(config.databits);
   serialPort.setParity(config.parity);
