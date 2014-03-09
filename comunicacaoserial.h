@@ -43,6 +43,19 @@ public:
     KEEP_ALIVE = 0x12
   };
 
+  enum QUAD_MSG_TYPE {
+    DIAGNOSTIC = 0x13,
+    SENSOR_DATA = 0x14,
+    COLLISION_DETECTED = 0x15,
+    STATUS_ON_AIR = 0x16,
+    STATUS_ON_GROUND = 0x17
+  };
+
+  enum DIAGNOSTIC_STATUS_BITMASK {
+    READY = 0x80,
+    ON_AIR = 0x40
+  };
+
   bool conectar(SerialConfig config);
   void desconectar();
   bool enviaHandshake();
@@ -50,16 +63,23 @@ public:
   bool keepAlive();
   bool enviaErro(ERROR_TYPE tipo, int id);
 
-  QByteArray lerMensagem();
+  //QByteArray lerMensagem();
   bool emitirMensagem(QByteArray mensagem);
 
 signals:
+  void mensagemLida(QByteArray mensagem);
 
 public slots:
+  void recebeBytes();
 
 private:
 
   QSerialPort serialPort;
+
+  uint message_id;
+  QByteArray buffer;
+
+  QByteArray id();
 
 };
 

@@ -52,6 +52,8 @@ private slots:
   void serialConectado(bool conectado);
   void serialDesconectado();
 
+  void quadricopteroConectado(bool conectado);
+
 };
 
 #endif // MAINWINDOW_H

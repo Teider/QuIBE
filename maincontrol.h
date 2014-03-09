@@ -42,6 +42,10 @@ private:
   int velocidade;
   ComunicacaoSerial serial;
 
+private slots:
+
+  void parse_message(QByteArray mensagem);
+
 };
 
 }
