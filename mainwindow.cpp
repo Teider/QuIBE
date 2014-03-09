@@ -167,9 +167,7 @@ void MainWindow::serialConectado(bool conectado) {
 void MainWindow::serialDesconectado() {
   ui->pushButton_conectar_serial->setText("Conectar Serial");
   ui->pushButton_conectar_serial->toggled(false);
-  ui->pushButton_conectar_quadricoptero->setEnabled(false);
-  ui->pushButton_conectar_quadricoptero->toggled(false);
-  toggleConectarQuadricoptero(false);
+  enableConectarQuadricoptero(false);
 }
 
 void MainWindow::toggleConectarQuadricoptero(bool conectar) {
