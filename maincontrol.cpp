@@ -44,8 +44,15 @@ void quibe::MainControl::comando_parar() {
   qDebug() << "Comando: Parar" << endl;
 }
 
-void quibe::MainControl::conectar_serial(bool conectar) {
-  emit serial_conectado(conectar);
+void quibe::MainControl::conectar_serial(bool conectar, SerialConfig config) {
+  bool conectado = false;
+  if (conectar) {
+    conectado = serial.conectar(config);
+  } else {
+    serial.desconectar();
+  }
+
+  emit serial_conectado(conectado);
 }
 
 void quibe::MainControl::conectar_quadricoptero(bool conectar) {

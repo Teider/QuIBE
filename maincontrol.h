@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include <comunicacaoserial.h>
+
 namespace quibe {
 
 class MainControl : public QObject {
@@ -28,7 +30,7 @@ public slots:
   void comando_antihorario();
   void comando_parar();
 
-  void conectar_serial(bool conectar);
+  void conectar_serial(bool conectar, SerialConfig config);
   void conectar_quadricoptero(bool conectar);
   void comando_decolar_pousar(bool decolar);
 
@@ -37,6 +39,7 @@ public slots:
 private:
 
   int velocidade;
+  ComunicacaoSerial serial;
 
 };
 

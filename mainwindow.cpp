@@ -3,6 +3,9 @@
 
 #include <QKeyEvent>
 
+#include <QSerialPortInfo>
+#include <serialconfig.h>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -16,6 +19,9 @@ MainWindow::MainWindow(quibe::MainControl *controle, QWidget *parent) :
   ui->setupUi(this);
 
   this->setupSignals();
+  foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+    ui->comboBox_porta->addItem(info.portName());
+  }
 }
 
 MainWindow::~MainWindow() {
@@ -65,15 +71,11 @@ void MainWindow::setupSignals() {
   QObject::connect(ui->pushButton_antihorario, SIGNAL(released()),
                    controle, SLOT(comando_parar()));
 
-  QObject::connect(ui->pushButton_conectar_serial, SIGNAL(clicked(bool)),
-                   controle, SLOT(conectar_serial(bool)));
   QObject::connect(ui->pushButton_conectar_quadricoptero, SIGNAL(clicked(bool)),
                    controle, SLOT(conectar_quadricoptero(bool)));
   QObject::connect(ui->pushButton_decolar_pousar, SIGNAL(clicked(bool)),
                    controle, SLOT(comando_decolar_pousar(bool)));
 
-  QObject::connect(controle, SIGNAL(serial_conectado(bool)),
-                   this, SLOT(enableConectarQuadricoptero(bool)));
   QObject::connect(controle, SIGNAL(quadricoptero_conectado(bool)),
                    this, SLOT(enableDecolar(bool)));
   QObject::connect(controle, SIGNAL(decolou()), this, SLOT(enableComandos()));
@@ -95,6 +97,9 @@ void MainWindow::setupSignals() {
                    this, SLOT(mudarVelocidade(QString)));
   QObject::connect(this, SIGNAL(velocidade_alterada(int)),
                    controle, SLOT(velocidade_alterada(int)));
+
+  QObject::connect(controle, SIGNAL(serial_conectado(bool)),
+                   this, SLOT(serialConectado(bool)));
 }
 
 void MainWindow::enableConectarQuadricoptero(bool enable) {
@@ -130,10 +135,29 @@ void MainWindow::disableComandos() {
 }
 
 void MainWindow::toggleConectarSerial(bool conectar) {
+  quibe::SerialConfig config;
+  config.portName = ui->comboBox_porta->currentText();
+  config.setBaudRate(ui->comboBox_baud_rate->currentText());
+  config.setDataBits(ui->comboBox_bits->currentText());
+  config.setParity(ui->comboBox_paridade->currentText());
+  config.setStopBits(ui->comboBox_stop_bits->currentText());
+  config.flowControl = QSerialPort::NoFlowControl;
   if (conectar) {
-    ui->pushButton_conectar_serial->setText("Desconectar Serial");
+    ui->pushButton_conectar_serial->setText("Conectando...");
+    controle->conectar_serial(true, config);
   } else {
     ui->pushButton_conectar_serial->setText("Conectar Serial");
+    controle->conectar_serial(false, config);
+  }
+}
+
+void MainWindow::serialConectado(bool conectado) {
+  if (conectado) {
+    ui->pushButton_conectar_serial->setText("Desconectar Serial");
+  } else {
+    displayMessage("Não foi possível conectar à porta serial");
+    ui->pushButton_conectar_serial->setText("Conectar Serial");
+    ui->pushButton_conectar_serial->toggled(false);
   }
 }
 

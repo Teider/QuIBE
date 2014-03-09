@@ -49,6 +49,8 @@ private slots:
   void mudarVelocidade(int nova_velocidade);
   void mudarVelocidade(QString nova_velocidade);
 
+  void serialConectado(bool conectado);
+
 };
 
 #endif // MAINWINDOW_H

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,11 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     maincontrol.cpp \
-    messagedialog.cpp
+    messagedialog.cpp \
+    comunicacaoserial.cpp \
+    serialconfig.cpp
 
 HEADERS  += mainwindow.h \
     maincontrol.h \
-    messagedialog.h
+    messagedialog.h \
+    comunicacaoserial.h \
+    serialconfig.h
 
 FORMS    += mainwindow.ui \
     messagedialog.ui
