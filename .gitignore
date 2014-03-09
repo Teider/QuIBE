@@ -15,3 +15,11 @@
 # Arquivos de configuração do Qt
 *.pro.user
 *.pro.user*
+
+#Arquivos compilados
+*.exe
+debug/*
+release/*
+object_script.*
+Makefile*
+ui_*.h
