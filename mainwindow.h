@@ -54,6 +54,10 @@ private slots:
 
   void quadricopteroConectado(bool conectado);
 
+  void atualizaSonar(uint sensor_cima, uint sensor_baixo,
+                     uint sensor_frente, uint sensor_tras,
+                     uint sensor_esquerda, uint sensor_direita);
+
 };
 
 #endif // MAINWINDOW_H

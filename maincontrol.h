@@ -20,6 +20,10 @@ signals:
   void decolou();
   void pousou();
 
+  void dados_sonar_recebidos(uint sensor_cima, uint sensor_baixo,
+                             uint sensor_frente, uint sensor_tras,
+                             uint sensor_esquerda, uint sensor_direita);
+
 public slots:
   void comando_esquerda();
   void comando_direita();

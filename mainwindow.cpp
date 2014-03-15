@@ -104,6 +104,9 @@ void MainWindow::setupSignals() {
                    this, SLOT(serialDesconectado()));
   QObject::connect(controle, SIGNAL(quadricoptero_conectado(bool)),
                    this, SLOT(quadricopteroConectado(bool)));
+
+  QObject::connect(controle, SIGNAL(dados_sonar_recebidos(uint,uint,uint,uint,uint,uint)),
+                   this, SLOT(atualizaSonar(uint,uint,uint,uint,uint,uint)));
 }
 
 void MainWindow::enableConectarQuadricoptero(bool enable) {
@@ -312,4 +315,16 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e) {
     break;
     }
   }
+}
+
+void MainWindow::atualizaSonar(uint sensor_cima, uint sensor_baixo,
+                               uint sensor_frente, uint sensor_tras,
+                               uint sensor_esquerda, uint sensor_direita) {
+
+  ui->label_acima->setText(QString::number(sensor_cima, 10));
+  ui->label_abaixo->setText(QString::number(sensor_baixo, 10));
+  ui->label_frente->setText(QString::number(sensor_frente, 10));
+  ui->label_tras->setText(QString::number(sensor_tras, 10));
+  ui->label_esquerda->setText(QString::number(sensor_esquerda, 10));
+  ui->label_direita->setText(QString::number(sensor_direita, 10));
 }

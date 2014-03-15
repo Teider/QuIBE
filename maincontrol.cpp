@@ -98,6 +98,20 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
       serial.enviaHandshake();
     }
     break;
+  case ComunicacaoSerial::SONAR_DATA:
+    uint sensor_cima, sensor_baixo, sensor_frente, sensor_tras, sensor_esquerda, sensor_direita;
+
+    sensor_cima = (mensagem[4] << 8) + mensagem[5];
+    sensor_baixo = (mensagem[6] << 8) + mensagem[7];
+    sensor_frente = (mensagem[8] << 8) + mensagem[9];
+    sensor_tras = (mensagem[10] << 8) + mensagem[11];
+    sensor_esquerda = (mensagem[12] << 8) + mensagem[13];
+    sensor_direita = (mensagem[14] << 8) + mensagem[15];
+
+    emit dados_sonar_recebidos(sensor_cima, sensor_baixo, sensor_frente,
+                               sensor_tras, sensor_esquerda, sensor_direita);
+
+    break;
   default:
     break;
   }

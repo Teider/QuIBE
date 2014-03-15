@@ -48,6 +48,13 @@ void quibe::ComunicacaoSerial::recebeBytes() {
           buffer.remove(0,28);
         }
         break;
+      case SONAR_DATA:
+      case MPU6050_DATA:
+        if (buffer.size() >= 16) {
+          emit mensagemLida(buffer.left(16));
+          buffer.remove(0,16);
+        }
+        break;
       default:
         //Erro ocorreu, tratar
         break;
