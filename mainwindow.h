@@ -58,6 +58,8 @@ private slots:
                      uint sensor_frente, uint sensor_tras,
                      uint sensor_esquerda, uint sensor_direita);
 
+  void atualizaAngulos(int roll, int pitch, int yaw);
+
 };
 
 #endif // MAINWINDOW_H

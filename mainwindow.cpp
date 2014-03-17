@@ -107,6 +107,9 @@ void MainWindow::setupSignals() {
 
   QObject::connect(controle, SIGNAL(dados_sonar_recebidos(uint,uint,uint,uint,uint,uint)),
                    this, SLOT(atualizaSonar(uint,uint,uint,uint,uint,uint)));
+
+  QObject::connect(controle, SIGNAL(dados_angulo_recebidos(int,int,int)),
+                   this, SLOT(atualizaAngulos(int,int,int)));
 }
 
 void MainWindow::enableConectarQuadricoptero(bool enable) {
@@ -226,44 +229,44 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
       emit ui->pushButton_esquerda->pressed();
       ui->pushButton_esquerda->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_Right:
       emit ui->pushButton_direita->pressed();
       ui->pushButton_direita->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_Up:
       emit ui->pushButton_frente->pressed();
       ui->pushButton_frente->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_Down:
       emit ui->pushButton_tras->pressed();
       ui->pushButton_tras->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_S:
       emit ui->pushButton_subir->pressed();
       ui->pushButton_subir->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_D:
       emit ui->pushButton_descer->pressed();
       ui->pushButton_descer->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_Period:
       emit ui->pushButton_horario->pressed();
       ui->pushButton_horario->setDown(true);
       setFocus();
-    break;
+      break;
     case Qt::Key_Comma:
       emit ui->pushButton_antihorario->pressed();
       ui->pushButton_antihorario->setDown(true);
       setFocus();
-    break;
+      break;
     default:
-    break;
+      break;
     }
   }
 }
@@ -275,44 +278,44 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e) {
       emit ui->pushButton_esquerda->released();
       ui->pushButton_esquerda->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_Right:
       emit ui->pushButton_direita->released();
       ui->pushButton_direita->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_Up:
       emit ui->pushButton_frente->released();
       ui->pushButton_frente->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_Down:
       emit ui->pushButton_tras->released();
       ui->pushButton_tras->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_S:
       emit ui->pushButton_subir->released();
       ui->pushButton_subir->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_D:
       emit ui->pushButton_descer->released();
       ui->pushButton_descer->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_Period:
       emit ui->pushButton_horario->released();
       ui->pushButton_horario->setDown(false);
       setFocus();
-    break;
+      break;
     case Qt::Key_Comma:
       emit ui->pushButton_antihorario->released();
       ui->pushButton_antihorario->setDown(false);
       setFocus();
-    break;
+      break;
     default:
-    break;
+      break;
     }
   }
 }
@@ -321,10 +324,46 @@ void MainWindow::atualizaSonar(uint sensor_cima, uint sensor_baixo,
                                uint sensor_frente, uint sensor_tras,
                                uint sensor_esquerda, uint sensor_direita) {
 
-  ui->label_acima->setText(QString::number(sensor_cima, 10));
-  ui->label_abaixo->setText(QString::number(sensor_baixo, 10));
-  ui->label_frente->setText(QString::number(sensor_frente, 10));
-  ui->label_tras->setText(QString::number(sensor_tras, 10));
-  ui->label_esquerda->setText(QString::number(sensor_esquerda, 10));
-  ui->label_direita->setText(QString::number(sensor_direita, 10));
+  if (sensor_cima > 400) {
+    ui->lineEdit_acima->setText("---");
+  }
+  else {
+    ui->lineEdit_acima->setText(QString::number(sensor_cima, 10));
+  }
+  if (sensor_baixo > 400) {
+    ui->lineEdit_abaixo->setText("---");
+  }
+  else {
+    ui->lineEdit_abaixo->setText(QString::number(sensor_baixo, 10));
+  }
+  if (sensor_frente > 400) {
+    ui->lineEdit_frente->setText("---");
+  }
+  else {
+    ui->lineEdit_frente->setText(QString::number(sensor_frente, 10));
+  }
+  if (sensor_tras > 400) {
+    ui->lineEdit_tras->setText("---");
+  }
+  else {
+    ui->lineEdit_tras->setText(QString::number(sensor_tras, 10));
+  }
+  if (sensor_esquerda > 400) {
+    ui->lineEdit_esquerda->setText("---");
+  }
+  else {
+    ui->lineEdit_esquerda->setText(QString::number(sensor_esquerda, 10));
+  }
+  if (sensor_direita > 400) {
+    ui->lineEdit_direita->setText("---");
+  }
+  else {
+    ui->lineEdit_direita->setText(QString::number(sensor_direita, 10));
+  }
+}
+
+void MainWindow::atualizaAngulos(int roll, int pitch, int yaw) {
+  ui->lineEdit_longitudinal->setText(QString::number(roll, 10));
+  ui->lineEdit_transversal->setText(QString::number(pitch, 10));
+  ui->lineEdit_vertical->setText(QString::number(yaw, 10));
 }

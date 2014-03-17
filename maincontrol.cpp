@@ -7,6 +7,8 @@ quibe::MainControl::MainControl(QObject *parent) :
   QObject(parent) {
   velocidade = 50;
 
+  velocidade_counter = 0;
+
   QObject::connect(&serial, SIGNAL(mensagemLida(QByteArray)),
                    this, SLOT(parse_message(QByteArray)));
 }
@@ -33,12 +35,16 @@ void quibe::MainControl::comando_tras() {
 
 void quibe::MainControl::comando_subir() {
   serial.enviaComandoMovimento(ComunicacaoSerial::SUBIR, velocidade/10);
-  qDebug() << "Comando: Subir" << endl;
+  velocidade_counter++;
+  //qDebug() << "Comando: Subir" << endl;
+  qDebug() << "Velocidade Atual: " << velocidade_counter;
 }
 
 void quibe::MainControl::comando_descer() {
   serial.enviaComandoMovimento(ComunicacaoSerial::DESCER, velocidade/10);
-  qDebug() << "Comando: Descer" << endl;
+  velocidade_counter--;
+  //qDebug() << "Comando: Descer" << endl;
+  qDebug() << "Velocidade Atual: " << velocidade_counter;
 }
 
 void quibe::MainControl::comando_horario() {
@@ -99,20 +105,36 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
     }
     break;
   case ComunicacaoSerial::SONAR_DATA:
+    qDebug() << "Recebeu dados do sonar";
     uint sensor_cima, sensor_baixo, sensor_frente, sensor_tras, sensor_esquerda, sensor_direita;
 
-    sensor_cima = (mensagem[4] << 8) + mensagem[5];
-    sensor_baixo = (mensagem[6] << 8) + mensagem[7];
-    sensor_frente = (mensagem[8] << 8) + mensagem[9];
-    sensor_tras = (mensagem[10] << 8) + mensagem[11];
-    sensor_esquerda = (mensagem[12] << 8) + mensagem[13];
-    sensor_direita = (mensagem[14] << 8) + mensagem[15];
+    sensor_cima = (((uint)mensagem[4]) << 8) + ((uint)mensagem[5]);
+    sensor_baixo = (((uint)mensagem[6]) << 8) + ((uint)mensagem[7]);
+    sensor_frente = (((uint)mensagem[8]) << 8) + ((uint)mensagem[9]);
+    sensor_tras = (((uint)mensagem[10] << 8)) + ((uint)mensagem[11]);
+    sensor_esquerda = (((uint)mensagem[12]) << 8) + ((uint)mensagem[13]);
+    sensor_direita = (((uint)mensagem[14]) << 8) + ((uint)mensagem[15]);
 
     emit dados_sonar_recebidos(sensor_cima, sensor_baixo, sensor_frente,
                                sensor_tras, sensor_esquerda, sensor_direita);
 
     break;
+  case ComunicacaoSerial::MPU6050_DATA:
+    int roll, pitch, yaw;
+
+    roll = (((int)mensagem[4]) << 8) + (((int)mensagem[5]) & 0xFF);
+    pitch = (((int)mensagem[6]) << 8) + (((int)mensagem[7]) & 0xFF);
+    yaw = (((int)mensagem[8]) << 8) + (((int)mensagem[9]) & 0xFF);
+
+    emit dados_angulo_recebidos(roll, pitch, yaw);
+    break;
   default:
+    qDebug() << "ERRO! Recebida mensagem inesperada.";
+    qDebug() << "Data Dump da mensagem:";
+    for (int i = 0; i < 8; i++) {
+      qDebug() << mensagem.left(4).toHex();
+      mensagem.remove(0,4);
+    }
     break;
   }
 }

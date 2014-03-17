@@ -33,9 +33,14 @@ void quibe::ComunicacaoSerial::recebeBytes() {
   while (serialPort.bytesAvailable()) {
     buffer.append(serialPort.readAll());
 
-    while (buffer.size() >= 4) {
+    //qDebug() << "Recebeu bytes. Buffer está com " << buffer.size() << "bytes";
+
+    if (buffer.size() >= 4) {
+
+      //qDebug() << "Tipo da mensagem atual é " << buffer.mid(3,1).toHex();
       switch (buffer[3]) {
       case DIAGNOSTIC:
+        //qDebug() << "Mensagem Atual é diagnóstico.";
       case COLLISION_DETECTED:
         if (buffer.size() >= 5) {
           emit mensagemLida(buffer.left(5));
@@ -48,15 +53,24 @@ void quibe::ComunicacaoSerial::recebeBytes() {
           buffer.remove(0,28);
         }
         break;
-      case SONAR_DATA:
       case MPU6050_DATA:
+        if (buffer.size() >= 10) {
+          emit mensagemLida(buffer.left(10));
+          buffer.remove(0,10);
+        };
+        break;
+      case SONAR_DATA:
         if (buffer.size() >= 16) {
           emit mensagemLida(buffer.left(16));
           buffer.remove(0,16);
-        }
+        };
         break;
       default:
         //Erro ocorreu, tratar
+        if (buffer.size() >= 32) {
+          emit mensagemLida(buffer.left(32));
+          buffer.remove(0,32);
+        }
         break;
       }
     }
