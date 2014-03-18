@@ -122,9 +122,15 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
   case ComunicacaoSerial::MPU6050_DATA:
     int roll, pitch, yaw;
 
+    qDebug() << "Leitura do MPU recebido do micro: " <<  mensagem.toHex();
+
     roll = (((int)mensagem[4]) << 8) + (((int)mensagem[5]) & 0xFF);
     pitch = (((int)mensagem[6]) << 8) + (((int)mensagem[7]) & 0xFF);
     yaw = (((int)mensagem[8]) << 8) + (((int)mensagem[9]) & 0xFF);
+
+    roll /= 60;
+    pitch /= 60;
+    yaw /= 60;
 
     emit dados_angulo_recebidos(roll, pitch, yaw);
     break;
