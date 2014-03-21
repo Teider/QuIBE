@@ -36,6 +36,7 @@ void quibe::MainControl::comando_tras() {
 void quibe::MainControl::comando_subir() {
   serial.enviaComandoMovimento(ComunicacaoSerial::SUBIR, velocidade/10);
   velocidade_counter++;
+  if (velocidade_counter > 100) velocidade_counter = 100;
   //qDebug() << "Comando: Subir" << endl;
   qDebug() << "Velocidade Atual: " << velocidade_counter;
 }
@@ -43,6 +44,7 @@ void quibe::MainControl::comando_subir() {
 void quibe::MainControl::comando_descer() {
   serial.enviaComandoMovimento(ComunicacaoSerial::DESCER, velocidade/10);
   velocidade_counter--;
+  if (velocidade_counter < 0) velocidade_counter = 0;
   //qDebug() << "Comando: Descer" << endl;
   qDebug() << "Velocidade Atual: " << velocidade_counter;
 }
@@ -128,9 +130,9 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
     pitch = (((int)mensagem[6]) << 8) + (((int)mensagem[7]) & 0xFF);
     yaw = (((int)mensagem[8]) << 8) + (((int)mensagem[9]) & 0xFF);
 
-    roll /= 60;
-    pitch /= 60;
-    yaw /= 60;
+    roll -= 180;
+    pitch -= 180;
+    yaw -= 180;
 
     emit dados_angulo_recebidos(roll, pitch, yaw);
     break;
