@@ -95,6 +95,10 @@ void quibe::MainControl::velocidade_alterada(int velocidade) {
 }
 
 void quibe::MainControl::parse_message(QByteArray mensagem) {
+
+  int id_motor;
+  int vel;
+
   switch (mensagem[3]) {
   case ComunicacaoSerial::DIAGNOSTIC:
     qDebug() << "Recebeu mensagem de diagnóstico";
@@ -135,6 +139,13 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
     yaw -= 180;
 
     emit dados_angulo_recebidos(roll, pitch, yaw);
+    break;
+  case ComunicacaoSerial::VELOCIDADE_MOTOR: {
+    id_motor = (((int)mensagem[4]) & 0xFF);
+    vel = (((int)mensagem[5]) & 0xFF);
+
+    qDebug() << "Alterou velocidade do motor " << id_motor << "para " << vel;
+  }
     break;
   default:
     qDebug() << "ERRO! Recebida mensagem inesperada.";

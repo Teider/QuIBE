@@ -65,6 +65,11 @@ void quibe::ComunicacaoSerial::recebeBytes() {
           buffer.remove(0,16);
         };
         break;
+      case VELOCIDADE_MOTOR:
+        if (buffer.size() >= 6) {
+          emit mensagemLida(buffer.left(6));
+          buffer.remove(0,6);
+        }
       default:
         //Erro ocorreu, tratar
         if (buffer.size() >= 32) {

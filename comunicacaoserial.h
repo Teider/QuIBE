@@ -51,7 +51,12 @@ public:
     STATUS_ON_GROUND = 0x17,
     REQUEST_DATA = 0x18,
     MPU6050_DATA = 0x19,
-    SONAR_DATA = 0x1A
+    SONAR_DATA = 0x1A,
+    REQUEST_SONAR = 0x1B
+  };
+
+  enum DEBUG_TYPE {
+    VELOCIDADE_MOTOR = 0x1C
   };
 
   enum DIAGNOSTIC_STATUS_BITMASK {
