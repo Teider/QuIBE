@@ -57,19 +57,38 @@ void quibe::ComunicacaoSerial::recebeBytes() {
         if (buffer.size() >= 10) {
           emit mensagemLida(buffer.left(10));
           buffer.remove(0,10);
-        };
+        }
         break;
       case SONAR_DATA:
         if (buffer.size() >= 16) {
           emit mensagemLida(buffer.left(16));
           buffer.remove(0,16);
-        };
+        }
         break;
       case VELOCIDADE_MOTOR:
+        if (buffer.size() >= 7) {
+          emit mensagemLida(buffer.left(7));
+          buffer.remove(0,7);
+        }
+        break;
+      case DELTA_T:
         if (buffer.size() >= 6) {
           emit mensagemLida(buffer.left(6));
           buffer.remove(0,6);
         }
+        break;
+      case STATUS_ON_AIR:
+        if (buffer.size() >= 4) {
+          emit mensagemLida(buffer.left(4));
+          buffer.remove(0,4);
+        }
+        break;
+      case STATUS_ON_GROUND:
+        if (buffer.size() >= 4) {
+          emit mensagemLida(buffer.left(4));
+          buffer.remove(0,4);
+        }
+        break;
       default:
         //Erro ocorreu, tratar
         if (buffer.size() >= 32) {

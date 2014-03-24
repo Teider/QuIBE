@@ -56,7 +56,8 @@ public:
   };
 
   enum DEBUG_TYPE {
-    VELOCIDADE_MOTOR = 0x1C
+    VELOCIDADE_MOTOR = 0x1C,
+    DELTA_T = 0x1D
   };
 
   enum DIAGNOSTIC_STATUS_BITMASK {

@@ -85,8 +85,10 @@ void quibe::MainControl::conectar_quadricoptero(bool conectar) {
 
 void quibe::MainControl::comando_decolar_pousar(bool decolar) {
   if (decolar) {
-    emit decolou();
-  } else emit pousou();
+    serial.enviaComandoMovimento(ComunicacaoSerial::DECOLAR, 0);
+  } else {
+    serial.enviaComandoMovimento(ComunicacaoSerial::POUSAR, 0);
+  }
 }
 
 void quibe::MainControl::velocidade_alterada(int velocidade) {
@@ -98,6 +100,9 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
 
   int id_motor;
   int vel;
+  int comp;
+
+  int delta_t;
 
   switch (mensagem[3]) {
   case ComunicacaoSerial::DIAGNOSTIC:
@@ -114,12 +119,12 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
     qDebug() << "Recebeu dados do sonar";
     uint sensor_cima, sensor_baixo, sensor_frente, sensor_tras, sensor_esquerda, sensor_direita;
 
-    sensor_cima = (((uint)mensagem[4]) << 8) + ((uint)mensagem[5]);
-    sensor_baixo = (((uint)mensagem[6]) << 8) + ((uint)mensagem[7]);
-    sensor_frente = (((uint)mensagem[8]) << 8) + ((uint)mensagem[9]);
-    sensor_tras = (((uint)mensagem[10] << 8)) + ((uint)mensagem[11]);
-    sensor_esquerda = (((uint)mensagem[12]) << 8) + ((uint)mensagem[13]);
-    sensor_direita = (((uint)mensagem[14]) << 8) + ((uint)mensagem[15]);
+    sensor_frente = (((uint)mensagem[4]) << 8) + ((uint)mensagem[5]);
+    sensor_tras = (((uint)mensagem[6]) << 8) + ((uint)mensagem[7]);
+    sensor_esquerda = (((uint)mensagem[8]) << 8) + ((uint)mensagem[9]);
+    sensor_direita = (((uint)mensagem[10] << 8)) + ((uint)mensagem[11]);
+    sensor_cima = (((uint)mensagem[12]) << 8) + ((uint)mensagem[13]);
+    sensor_baixo = (((uint)mensagem[14]) << 8) + ((uint)mensagem[15]);
 
     emit dados_sonar_recebidos(sensor_cima, sensor_baixo, sensor_frente,
                                sensor_tras, sensor_esquerda, sensor_direita);
@@ -128,7 +133,7 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
   case ComunicacaoSerial::MPU6050_DATA:
     int roll, pitch, yaw;
 
-    qDebug() << "Leitura do MPU recebido do micro: " <<  mensagem.toHex();
+    //qDebug() << "Leitura do MPU recebido do micro: " <<  mensagem.toHex();
 
     roll = (((int)mensagem[4]) << 8) + (((int)mensagem[5]) & 0xFF);
     pitch = (((int)mensagem[6]) << 8) + (((int)mensagem[7]) & 0xFF);
@@ -138,14 +143,31 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
     pitch -= 180;
     yaw -= 180;
 
+    qDebug() << "Leitura do MPU recebido do micro:";
+    qDebug() << "Roll: " << roll << "    Pitch: " << pitch;
+
     emit dados_angulo_recebidos(roll, pitch, yaw);
     break;
-  case ComunicacaoSerial::VELOCIDADE_MOTOR: {
-    id_motor = (((int)mensagem[4]) & 0xFF);
-    vel = (((int)mensagem[5]) & 0xFF);
+  case ComunicacaoSerial::VELOCIDADE_MOTOR:
+    id_motor = ((int)mensagem[4]);
+    vel = ((int)mensagem[5]);
+    comp = ((int)mensagem[6]);
 
-    qDebug() << "Alterou velocidade do motor " << id_motor << "para " << vel;
-  }
+    qDebug() << "Alterou velocidade do motor " << id_motor << "para " << vel <<
+                " com compensação " << comp;
+    //qDebug() << mensagem.toHex();
+    break;
+  case ComunicacaoSerial::DELTA_T:
+    delta_t = (((int)mensagem[4]) << 8) + (((int)mensagem[5]) & 0xFF);
+
+    qDebug() << "DELTA T: " << delta_t;
+    //qDebug() << mensagem.toHex();
+    break;
+  case ComunicacaoSerial::STATUS_ON_AIR:
+    emit decolou();
+    break;
+  case ComunicacaoSerial::STATUS_ON_GROUND:
+    emit pousou();
     break;
   default:
     qDebug() << "ERRO! Recebida mensagem inesperada.";
