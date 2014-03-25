@@ -86,8 +86,10 @@ void quibe::MainControl::conectar_quadricoptero(bool conectar) {
 void quibe::MainControl::comando_decolar_pousar(bool decolar) {
   if (decolar) {
     serial.enviaComandoMovimento(ComunicacaoSerial::DECOLAR, 0);
+    emit decolou();
   } else {
     serial.enviaComandoMovimento(ComunicacaoSerial::POUSAR, 0);
+    emit pousou();
   }
 }
 
@@ -164,10 +166,10 @@ void quibe::MainControl::parse_message(QByteArray mensagem) {
     //qDebug() << mensagem.toHex();
     break;
   case ComunicacaoSerial::STATUS_ON_AIR:
-    emit decolou();
+    //emit decolou();
     break;
   case ComunicacaoSerial::STATUS_ON_GROUND:
-    emit pousou();
+    //emit pousou();
     break;
   default:
     qDebug() << "ERRO! Recebida mensagem inesperada.";
